@@ -61,8 +61,9 @@ function handleValidation(board: string[]): {
   let roundWon = false;
   let isDraw = false;
 
-  for (let i = 0; i <= WINNING_CONDITIONS.length; i++) {
+  for (let i = 0; i < WINNING_CONDITIONS.length; i++) {
     const winCondition = WINNING_CONDITIONS[i];
+
     const firstCell = board[winCondition[0]];
     const secondCell = board[winCondition[1]];
     const thirdCell = board[winCondition[2]];
