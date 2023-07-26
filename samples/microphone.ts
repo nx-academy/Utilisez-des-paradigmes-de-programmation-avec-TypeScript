@@ -20,3 +20,5 @@ class Microphone implements Recordable {
   }
 }
 
+const myMicrophone = new Microphone(50)
+
