@@ -20,3 +20,6 @@ class WaterGlass {
   }
 }
 
+const myFirstWaterGlass = new WaterGlass(100, 'water')
+const mySecondWaterGlass = new WaterGlass(60, 'cola')
+
