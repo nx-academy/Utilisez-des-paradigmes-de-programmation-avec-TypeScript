@@ -38,7 +38,7 @@ function updateStatus(fn: string): void {
   const $gameStatus = document.querySelector(".game-status");
 
   if ($gameStatus) {
-    $gameStatus.innerHTML = fn;
+    $gameStatus.textContent = fn;
   }
 }
 
@@ -54,33 +54,17 @@ function getDrawMessage(): string {
   return "Game ended in a draw";
 }
 
+function checkWinCondition(winCondition: number[], gameState: string[]): boolean {
+  const [a, b, c] = winCondition;
+  return gameState[a] !== "" && gameState[a] === gameState[b] && gameState[b] === gameState[c];
+}
+
 function handleValidation(board: string[]): {
   roundWon: boolean;
   isDraw: boolean;
 } {
-  let roundWon = false;
-  let isDraw = false;
-
-  for (let i = 0; i < WINNING_CONDITIONS.length; i++) {
-    const winCondition = WINNING_CONDITIONS[i];
-
-    const firstCell = board[winCondition[0]];
-    const secondCell = board[winCondition[1]];
-    const thirdCell = board[winCondition[2]];
-
-    if (firstCell === "" || secondCell === "" || thirdCell === "") {
-      continue;
-    }
-
-    if (firstCell === secondCell && secondCell === thirdCell) {
-      roundWon = true;
-      break;
-    }
-
-    if (!board.includes("")) {
-      isDraw = true;
-    }
-  }
+  const roundWon = WINNING_CONDITIONS.some(winCondition => checkWinCondition(winCondition, board));
+  const isDraw = !roundWon && !board.includes("");
 
   return {
     roundWon,
@@ -88,42 +72,58 @@ function handleValidation(board: string[]): {
   };
 }
 
+function makeMove(state: State, cellIndex: number): State {
+  if (!state.isGameActive || state.gameState[cellIndex] !== "") {
+    return state;
+  }
+
+  const newState = {
+    ...state,
+    gameState: [...state.gameState],
+  };
+
+  newState.gameState[cellIndex] = state.currentPlayer;
+
+  const { roundWon, isDraw } = handleValidation(newState.gameState);
+
+  if (roundWon || isDraw) {
+    newState.isGameActive = false;
+  } else {
+    newState.currentPlayer = state.currentPlayer === "X" ? "O" : "X";
+  }
+
+  return newState;
+}
+
 function game(): void {
   const store = createStore();
-  const state = store();
+  let state = store();
 
   document.querySelectorAll(".cell").forEach((cell) =>
     cell.addEventListener("click", (e: Event) => {
       const [$cell, cellIndex] = getCellClicked(e);
 
-      if (state.gameState[cellIndex] !== "" || !state.isGameActive) {
-        return;
+      const newState = makeMove(state, cellIndex);
+      $cell.innerHTML = newState.currentPlayer
+
+      if (newState !== state) {
+        state = newState;
+        updateStatus(getGameStatus(state.currentPlayer));
+
+        if (!state.isGameActive) {
+          if (handleValidation(state.gameState).roundWon) {
+            updateStatus(getWinningMessage(state.currentPlayer));
+          } else {
+            updateStatus(getDrawMessage());
+          }
+        }
       }
-
-      state.gameState[cellIndex] = state.currentPlayer;
-      $cell.innerHTML = state.currentPlayer;
-
-      updateStatus(getGameStatus(state.currentPlayer));
-
-      const { roundWon, isDraw } = handleValidation(state.gameState);
-
-      if (roundWon) {
-        updateStatus(getWinningMessage(state.currentPlayer));
-        return;
-      }
-
-      if (isDraw) {
-        updateStatus(getDrawMessage());
-        return;
-      }
-
-      state.currentPlayer = state.currentPlayer === "X" ? "O" : "X";
     }),
   );
 }
 
 function handleRestartGame(): void {
-  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
+  document.querySelectorAll(".cell").forEach((cell) => (cell.textContent = ""));
   game();
 }
 
@@ -137,3 +137,4 @@ function main() {
 }
 
 main();
+
