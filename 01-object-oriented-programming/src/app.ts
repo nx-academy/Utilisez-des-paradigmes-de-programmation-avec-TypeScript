@@ -1,6 +1,6 @@
 class Game {
   gameState: string[];
-  currentPlayer: string;
+  currentPlayer: "X" | "Y";
   isGameActive: boolean;
 
   constructor() {
@@ -11,16 +11,11 @@ class Game {
 }
 
 class App {
-  game: Game;
-
-  constructor() {
-    this.game = new Game();
-  }
-
   init(): void {
     window.alert("Let's start the game!");
   }
 }
 
+const game = new Game();
 const app = new App();
 app.init();
