@@ -9,7 +9,7 @@ class Game {
     this.isGameActive = true;
   }
 
-  public handleRestartGame(): void {
+  handleRestartGame(): void {
     this.isGameActive = true;
     this.currentPlayer = "X";
     this.gameState = ["", "", "", "", "", "", "", "", ""];
