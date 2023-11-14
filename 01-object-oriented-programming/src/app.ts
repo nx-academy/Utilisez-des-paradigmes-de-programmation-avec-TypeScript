@@ -8,14 +8,33 @@ class Game {
     this.currentPlayer = "X";
     this.isGameActive = true;
   }
-}
 
-class App {
-  init(): void {
-    window.alert("Let's start the game!");
+  public handleRestartGame(): void {
+    this.isGameActive = true;
+    this.currentPlayer = "X";
+    this.gameState = ["", "", "", "", "", "", "", "", ""];
+
+    console.log("Game restart")
+
+    document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
   }
 }
 
-const game = new Game();
+class App {
+  game: Game
+
+  constructor() {
+    this.game = new Game();
+  }
+
+  init(): void {
+    //window.alert("Let's start the game!");
+
+    document
+      .querySelector(".game-restart")
+      ?.addEventListener("click", () => this.game.handleRestartGame());
+  }
+}
+
 const app = new App();
 app.init();
