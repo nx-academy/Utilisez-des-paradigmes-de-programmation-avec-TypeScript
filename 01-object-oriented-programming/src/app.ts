@@ -20,7 +20,7 @@ class Game {
     this.isGameActive = true;
   }
 
-  private handleCellPlayed(
+  handleCellPlayed(
     clickedCell: HTMLDivElement,
     clickedCellIndex: number,
   ): void {
@@ -62,7 +62,7 @@ class Game {
     // this.handlePlayerChanged();
   }
 
-  public handleCellClick(clickedCellEvent: Event): void {
+  handleCellClick(clickedCellEvent: Event): void {
     const clickedCell = clickedCellEvent.target as HTMLDivElement;
     const clickedCellIndex = Number(
       clickedCell.getAttribute("data-cell-index"),
