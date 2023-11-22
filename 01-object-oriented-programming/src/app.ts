@@ -1,3 +1,23 @@
+class Messages {
+  private static statusDisplay = document.querySelector(".game-status");
+
+  public static displayWinningMessage(currentPlayer: string): void {
+    const message = `Player ${currentPlayer} has won!`;
+
+    if (this.statusDisplay) {
+      this.statusDisplay.innerHTML = message;
+    }
+  }
+
+  public static displayCurrentPlayerTurn(currentPlayer: string): void {
+    const message = `It's ${currentPlayer} turn`;
+
+    if (this.statusDisplay) {
+      this.statusDisplay.innerHTML = message;
+    }
+  }
+}
+
 class Game {
   private gameState: string[];
   private currentPlayer: "X" | "Y";
@@ -48,7 +68,7 @@ class Game {
 
     if (roundWon) {
       this.isGameActive = false;
-      console.log(`Player ${this.currentPlayer} has won`);
+      Messages.displayWinningMessage(this.currentPlayer);
       return;
     }
 
@@ -81,7 +101,7 @@ class Game {
     this.currentPlayer = "X";
     this.gameState = ["", "", "", "", "", "", "", "", ""];
 
-    console.log("Game restart");
+    Messages.displayCurrentPlayerTurn(this.currentPlayer);
 
     document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
   }
