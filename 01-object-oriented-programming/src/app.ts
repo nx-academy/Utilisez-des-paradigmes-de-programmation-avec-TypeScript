@@ -9,6 +9,14 @@ class Messages {
     }
   }
 
+  public static displayDrawMessage() {
+    const message = "Game ended in a draw";
+
+    if (this.statusDisplay) {
+      this.statusDisplay.innerHTML = message;
+    }
+  }
+
   public static displayCurrentPlayerTurn(currentPlayer: string): void {
     const message = `It's ${currentPlayer} turn`;
 
@@ -40,12 +48,17 @@ class Game {
     this.isGameActive = true;
   }
 
-  handleCellPlayed(
+  private handleCellPlayed(
     clickedCell: HTMLDivElement,
     clickedCellIndex: number,
   ): void {
     this.gameState[clickedCellIndex] = this.currentPlayer;
     clickedCell.innerHTML = this.currentPlayer;
+  }
+
+  private handlePlayerChanged(): void {
+    this.currentPlayer = this.currentPlayer === "X" ? "Y" : "X";
+    Messages.displayCurrentPlayerTurn(this.currentPlayer);
   }
 
   private handleResultValidation(): void {
@@ -74,15 +87,14 @@ class Game {
 
     if (!this.gameState.includes("")) {
       this.isGameActive = false;
-      console.log("It's a draw");
+      Messages.displayDrawMessage();
       return;
     }
 
-    // Pour l'instant, cette méthode n'existe pas
-    // this.handlePlayerChanged();
+    this.handlePlayerChanged();
   }
 
-  handleCellClick(clickedCellEvent: Event): void {
+  public handleCellClick(clickedCellEvent: Event): void {
     const clickedCell = clickedCellEvent.target as HTMLDivElement;
     const clickedCellIndex = Number(
       clickedCell.getAttribute("data-cell-index"),
@@ -114,7 +126,7 @@ class App {
     this.game = new Game();
   }
 
-  init(): void {
+  public init(): void {
     document
       .querySelectorAll(".cell")
       .forEach((cell) =>
