@@ -1,14 +1,13 @@
 # Utilisez des paradigmes de programmation avec TypeScript
- Code source du Tic Tac Toe - le projet fil rouge du cours "Utilisez des paradigmes de programmation avec TypeScript" 
+Bienvenue sur le code source du projet fil rouge **Tic Tac Toe**. Ce projet a été réalisé en lien avec le cours [**Utilisez des paradigmes de programmation avec TypeScript**](https://beta.nx.academy/p/cours-paradigmes-programmation-typescript) sur [NX Academy](https://beta.nx.academy).
 
-Bienvenue sur le code source du projet fil rouge **Tic Tac Toe**. Ce projet a été réalisé en lien avec le cours **Utilisez des paradigmes de programmation avec TypeScript** sur [NX](https://beta.nx.academy).
-
-Ce cours ainsi que son projet fil rouge ont été écrits, développés et testés sur Mac et Windows. Ce projet est **open source**. Si vous avez une question, que vous avez trouvé une faute d'orthographe ou que quelque chose ne vous semble pas clair, je vous invite à ouvrir une [issue](https://github.com/nx-academy/Utilisez-des-paradigmes-de-programmation-avec-TypeScript/issues).
+Ce cours ainsi que son projet fil rouge ont été écrits, développés et testés sur Mac et Windows. Ce projet est **open source**. Si vous avez des questions, trouvé des fautes d'orthographe, ou si quelque chose n'est pas clair, je vous invite à ouvrir une [issue](https://github.com/nx-academy/Utilisez-des-paradigmes-de-programmation-avec-TypeScript/issues).
 
 ## Prérequis
 
 - [NodeJS](https://nodejs.org/en) : Ce cours a été testé pour la version 18 de
-  NodeJS. Je vous invite fortement à utiliser cette version.
+  NodeJS. Je vous recommande vivement d'utiliser cette version.
+- [TypeScript](https://www.typescriptlang.org/) : tout le code JavaScript du projet est écrit en TypeScript. Il est important que vous ayez des connaissances dans ce langage. Si ce n'est pas le cas, je vous invite à suivre [le cours de NX Academy dédiée à TypeScript](https://beta.nx.academy/p/cours-typescript-tsconfig-eslint).
 
 ## Outils conseillés
 
@@ -32,25 +31,24 @@ git@github.com:nx-academy/Utilisez-des-paradigmes-de-programmation-avec-TypeScri
 https://github.com/nx-academy/Utilisez-des-paradigmes-de-programmation-avec-TypeScript.git
 ```
 
+Le code complet du projet se trouve sur la branche `full-project`
+
+```
+git checkout full-project
+```
+
 ### Installation
 
-Pour installer les librairies :
+Vous constaterez que la branche `main` ne contient pas de fichier `package.json`. 
+En effet, je vous propose d'installer les librairies du projet soit dans la branche `full-project`, soit à partir du chapitre 1 de la partie 2.
 
-```
-yarn
-```
+Au terme de ce cours, vous aurez trois grands dossiers :
 
-Pour lancer la compilation de TypeScript vers JavaScript :
+- `01-object-oriented-programming` - soit la version du Tic Tac Toe codé en programmation orientée objet.
+- `02-functionnal-programming` - soit la version du Tic Tac Toe codé en programmation fonctionnelle.
+- `samples` - un dossier contenant des snippets de code que je présente dans le cours.
 
-```
-yarn dev
-```
 
-Pour lancer la CLI :
-
-```
-yarn start --help
-```
 
 ## Informations complémentaires:
 
